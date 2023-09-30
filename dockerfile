@@ -1,5 +1,5 @@
 # Gunakan node.js versi yang diinginkan sebagai base image
-FROM node:14
+FROM node:14-slim
 
 # Set direktori kerja di dalam container
 WORKDIR /app
