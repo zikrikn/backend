@@ -8,16 +8,6 @@ const authRoute = require("./route/auth.route.js");
 const { MONGO_URL, PORT } = process.env;
 // x-www-form-urlencoded
 const bodyParser = require("body-parser");
-// multipart/form-data
-const multer = require("multer");
-// const uploadImage = require("./util/gcs.util.js");
-
-const multerMid = multer({
-  storage: multer.memoryStorage(),
-  limits: {
-    fileSize: 5 * 1024 * 1024,
-  },
-});
 
 app.disable("x-powered-by");
 mongoose
@@ -41,7 +31,6 @@ app.use(
 );
 app.use(cookieParser());
 
-app.use(multerMid.single("file")); // for parsing multipart/form-data
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
