@@ -1,6 +1,7 @@
 const userService = require("../service/user.service");
+const logger = require('../logger/api.logger');
 
-module.exports.Signup = async (req, res, next) => {
+module.exports.Signup = async (req, res) => {
   try {
     logger.info("Signup::", req.body);
     const userData = req.body;
@@ -9,43 +10,41 @@ module.exports.Signup = async (req, res, next) => {
     res
       .status(201)
       .json({ message: "User signed in successfully", success: true, user });
-    next();
   } catch (error) {
-    logger.error("Error::", error);
+    logger.error(error.message);
     res.status(500).json({ status: false, message: "Internal server error." });
   }
 };
 
-module.exports.Login = async (req, res, next) => {
+module.exports.Login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    logger.info("Login:: ", email, " ", password)
+    logger.info("Login as ::", email);
     const token = await userService.loginUser(email, password);
     res.cookie("token", token, { withCredentials: true, httpOnly: false });
     res
       .status(201)
       .json({ message: "User logged in successfully", success: true });
-    next();
   } catch (error) {
-    logger.error("Error::", error);
+    logger.error(error.message);
     res.status(500).json({ status: false, message: "Internal server error." });
   }
 };
 
-module.exports.Logout = async (req, res, next) => {
+module.exports.Logout = async (req, res) => {
   try {
+    logger.info("Logout::", req.user.fullName);
     res.clearCookie("token", { withCredentials: true });
     res.status(200).json({ message: "User logged out successfully" });
-    next();
   } catch (error) {
-    logger.error("Error::", error);
+    logger.error(error.message);
     res.status(500).json({ status: false, message: "Internal server error." });
   }
 };
 
-
-module.exports.Profile = async (req, res, next) => {
+module.exports.Profile = async (req, res) => {
   try {
+    logger.info("Profile::", req.user.fullName);
     const userId = req.user._id;
     const user = await userService.getProfile(userId);
 
@@ -54,28 +53,26 @@ module.exports.Profile = async (req, res, next) => {
     }
 
     res.status(200).json({ user });
-    next();
   } catch (error) {
-    logger.error("Error::", error);
+    logger.error(error.message);
     res.status(500).json({ status: false, message: "Internal server error." });
   }
 };
 
-
-module.exports.UpdateProfile = async (req, res, next) => {
+module.exports.UpdateProfile = async (req, res) => {
   try {
+    logger.info("UpdateProfile::", req.user.fullName);
     const { _id, email } = req.user;
     const { fullName, phoneNumber } = req.body;
-    const updateFields = { fullName, phoneNumber, email};
+    const updateFields = { fullName, phoneNumber, email };
     const updatedUser = await userService.updateProfile(
       _id,
       updateFields,
       req.file
     );
     res.status(200).json({ user: updatedUser });
-    next();
   } catch (error) {
-    logger.error("Error::", error);
+    logger.error(error.message);
     res.status(500).json({ status: false, message: "Internal server error." });
   }
 };

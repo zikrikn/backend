@@ -17,7 +17,7 @@ async function signupUser(userData) {
   const existingUser = await userRepository.findUserByEmail(email);
 
   if (existingUser) {
-    logger.error("User already exist");
+    throw new Error("User already exist");
   }
 
   const user = await userRepository.createUser({
@@ -38,7 +38,7 @@ async function loginUser(email, password) {
   const user = await userRepository.findUserByEmail(email);
 
   if (!user || !(await bcrypt.compare(password, user.password))) {
-    logger.error("Incorrect password or email")
+    throw new Error("Incorrect password or email");
   }
 
   const token = createSecretToken(user._id);

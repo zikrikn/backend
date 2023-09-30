@@ -1,7 +1,6 @@
-require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const User = require("../model/user.model");
-const logger = require('../logger/api.logger');
+require("dotenv").config();
 
 module.exports.verifyToken = async (req, res, next) => {
   const token = req.cookies.token;
@@ -27,7 +26,6 @@ module.exports.verifyToken = async (req, res, next) => {
 
     next(); // Continue to the next middleware or route handler
   } catch (err) {
-    logger.error("Error::", err);
     return res.status(401).json({ status: false, message: "Invalid token." });
   }
 };
