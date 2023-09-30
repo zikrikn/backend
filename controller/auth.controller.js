@@ -2,6 +2,7 @@ const userService = require("../service/user.service");
 
 module.exports.Signup = async (req, res, next) => {
   try {
+    logger.info("Signup::", req.body);
     const userData = req.body;
     const { token, user } = await userService.signupUser(userData);
     res.cookie("token", token, { withCredentials: true, httpOnly: false });
@@ -10,7 +11,7 @@ module.exports.Signup = async (req, res, next) => {
       .json({ message: "User signed in successfully", success: true, user });
     next();
   } catch (error) {
-    console.error(error);
+    logger.error("Error::", error);
     res.status(500).json({ status: false, message: "Internal server error." });
   }
 };
@@ -18,6 +19,7 @@ module.exports.Signup = async (req, res, next) => {
 module.exports.Login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
+    logger.info("Login:: ", email, " ", password)
     const token = await userService.loginUser(email, password);
     res.cookie("token", token, { withCredentials: true, httpOnly: false });
     res
@@ -25,7 +27,7 @@ module.exports.Login = async (req, res, next) => {
       .json({ message: "User logged in successfully", success: true });
     next();
   } catch (error) {
-    console.error(error);
+    logger.error("Error::", error);
     res.status(500).json({ status: false, message: "Internal server error." });
   }
 };
@@ -36,7 +38,7 @@ module.exports.Logout = async (req, res, next) => {
     res.status(200).json({ message: "User logged out successfully" });
     next();
   } catch (error) {
-    console.error(error);
+    logger.error("Error::", error);
     res.status(500).json({ status: false, message: "Internal server error." });
   }
 };
@@ -45,7 +47,6 @@ module.exports.Logout = async (req, res, next) => {
 module.exports.Profile = async (req, res, next) => {
   try {
     const userId = req.user._id;
-
     const user = await userService.getProfile(userId);
 
     if (!user) {
@@ -55,7 +56,7 @@ module.exports.Profile = async (req, res, next) => {
     res.status(200).json({ user });
     next();
   } catch (error) {
-    console.error(error);
+    logger.error("Error::", error);
     res.status(500).json({ status: false, message: "Internal server error." });
   }
 };
@@ -74,7 +75,7 @@ module.exports.UpdateProfile = async (req, res, next) => {
     res.status(200).json({ user: updatedUser });
     next();
   } catch (error) {
-    console.error(error);
+    logger.error("Error::", error);
     res.status(500).json({ status: false, message: "Internal server error." });
   }
 };

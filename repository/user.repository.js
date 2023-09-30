@@ -1,19 +1,44 @@
 const User = require("../model/user.model");
+const logger = require("../logger/api.logger");
 
 async function createUser(user) {
-  return await User.create(user);
+  let data = {};
+  try {
+    data = await User.create(user);
+  } catch (error) {
+    logger.error("Error::", error);
+  }
+  return data;
 }
 
 async function findUserByEmail(email) {
-  return await User.findOne({ email });
+  let data = {};
+  try {
+    data = await User.findOne({ email });
+  } catch (error) {
+    logger.error("Error::", error);
+  }
+  return data;
 }
 
 async function getUserProfile(userId) {
-  return await User.findById(userId).select("-password");
+  let data = {};
+  try {
+    data = await User.findById(userId).select("-password");
+  } catch (error) {
+    logger.error("Error::", error);
+  }
+  return data;
 }
 
 async function updateUser(userId, updateFields) {
-  return await User.findByIdAndUpdate(userId, updateFields, { new: true });
+  let data = {};
+  try {
+    data = await User.findByIdAndUpdate(userId, updateFields, { new: true });
+  } catch (error) {
+    logger.error("Error::", error);
+  }
+  return data;
 }
 
 module.exports = {

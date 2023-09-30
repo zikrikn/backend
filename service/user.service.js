@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const { createSecretToken } = require("../util/token.util");
 const userRepository = require("../repository/user.repository");
 const uploadImageProfile = require("../util/gcs.util.js");
+const logger = require('../logger/api.logger');
 
 async function signupUser(userData) {
   const {
@@ -16,7 +17,7 @@ async function signupUser(userData) {
   const existingUser = await userRepository.findUserByEmail(email);
 
   if (existingUser) {
-    throw new Error("User already exists");
+    logger.error("User already exist");
   }
 
   const user = await userRepository.createUser({
@@ -37,7 +38,7 @@ async function loginUser(email, password) {
   const user = await userRepository.findUserByEmail(email);
 
   if (!user || !(await bcrypt.compare(password, user.password))) {
-    throw new Error("Incorrect password or email");
+    logger.error("Incorrect password or email")
   }
 
   const token = createSecretToken(user._id);

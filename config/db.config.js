@@ -8,9 +8,7 @@ const connect = () => {
 
     mongoose.connect(url, {
         useNewUrlParser: true,
-        useFindAndModify: true,
-        useUnifiedTopology: true,
-        useCreateIndex: true,
+        useUnifiedTopology: true, // Use this instead of useUnifiedTopology
     })
 
     mongoose.connection.once("open", async () => {
@@ -31,7 +29,7 @@ const disconnect = () => {
     mongoose.disconnect();
 
     mongoose.once("close", async () => {
-        console.log("Diconnected  to database");
+        console.log("Disconnected from database");
     });
 
 };
