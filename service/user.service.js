@@ -2,7 +2,6 @@ const bcrypt = require("bcryptjs");
 const { createSecretToken } = require("../util/token.util");
 const userRepository = require("../repository/user.repository");
 const uploadImageProfile = require("../util/gcs.util.js");
-const logger = require('../logger/api.logger');
 
 async function signupUser(userData) {
   const {
