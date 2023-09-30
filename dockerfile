@@ -13,6 +13,9 @@ RUN npm install
 # Salin kode aplikasi Anda ke dalam container
 COPY . .
 
+ENV PORT 8080
+ENV HOST 0.0.0.0
+
 # Port yang akan digunakan oleh Express.js
 EXPOSE 8080
 
