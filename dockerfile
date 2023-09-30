@@ -16,5 +16,4 @@ COPY . .
 # Port yang akan digunakan oleh Express.js
 EXPOSE 8080
 
-# Perintah untuk menjalankan aplikasi Express.js
 CMD ["node", "app.js"]
