@@ -7,6 +7,7 @@ router.post("/signup", Signup);
 router.post("/login", Login);
 router.get("/logout", Logout);
 router.put("/profile", verifyToken, uploadPhotoProfile, UpdateProfile);
+router.get("/profile", verifyToken, Profile);
 // router.put("/picture", verifyToken, uploadPicture, UpdatePicture);
 
 module.exports = router;

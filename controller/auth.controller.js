@@ -84,7 +84,7 @@ module.exports.Logout = async (req, res, next) => {
 
 module.exports.Profile = async (req, res, next) => {
   try {
-    const user = await User.findById(req.user._id);
+    const user = await User.findById(req.user._id).select('-password');
     res.status(200).json({ user });
     next();
   } catch (error) {
