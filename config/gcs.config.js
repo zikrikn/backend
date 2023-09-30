@@ -1,13 +1,11 @@
-const Cloud = require('@google-cloud/storage')
-const path = require('path')
-const serviceKey = path.join(__dirname, './key.json')
+const { Storage } = require('@google-cloud/storage');
 
-console.log(serviceKey)
-
-const { Storage } = Cloud
 const storage = new Storage({
-  keyFilename: serviceKey,
   projectId: process.env.GCP_PROJECT_ID,
-})
+  credentials: {
+    private_key: process.env.GCP_PRIVATE_KEY,
+    client_email: process.env.GCP_CLIENT_EMAIL,
+  },
+});
 
 module.exports = storage
