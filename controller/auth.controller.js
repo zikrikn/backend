@@ -1,7 +1,7 @@
 const User = require("../model/user.model");
 const { createSecretToken } = require("../util/token.util");
 const bcrypt = require("bcryptjs");
-const uploadImage = require("../util/gcs.util.js");
+const uploadImageProfile = require("../util/gcs.util.js");
 
 module.exports.Signup = async (req, res, next) => {
   try {
@@ -84,7 +84,7 @@ module.exports.Logout = async (req, res, next) => {
 
 module.exports.Profile = async (req, res, next) => {
   try {
-    const user = await User.findById(req.user._id).select('-password');
+    const user = await User.findById(req.user._id).select("-password");
     res.status(200).json({ user });
     next();
   } catch (error) {
@@ -102,7 +102,9 @@ module.exports.UpdateProfile = async (req, res, next) => {
 
     // Check if a file is uploaded for the photo profile
     if (req.file) {
-      const imageUrl = await uploadImage(req.file);
+      const { fullName } = req.user; 
+      const sanitizedFullName = fullName.replace(/ /g, "_");
+      const imageUrl = await uploadImageProfile(req.file, sanitizedFullName);
       updateFields.photoProfile = imageUrl;
     }
 

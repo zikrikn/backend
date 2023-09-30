@@ -2,26 +2,33 @@ const util = require("util");
 const gc = require("../config/gcs.config");
 const bucket = gc.bucket(process.env.GCP_BUCKET_NAME);
 
-const uploadImage = async (file) => {
-    const { originalname, buffer } = file;
-  
-    const blob = bucket.file(originalname.replace(/ /g, "_"));
-    const blobStream = blob.createWriteStream({
-      resumable: false
-    });
-  
-    // Write the image data to the blob stream
-    await blobStream.write(buffer);
-  
-    // Wait for the blob stream to finish writing
-    await blobStream.finished;
-  
-    // Generate the public URL for the uploaded image
-    const publicUrl = util.format(
-      `https://storage.googleapis.com/${bucket.name}/${blob.name}`
-    );
-  
-    return publicUrl;
-  };
+const uploadImageProfile = async (file, sanitizedFullName) => {
+  const { originalname, buffer } = file;
+  const fileExtension = originalname.split('.').pop();
+  const blobPath = `profile/${sanitizedFullName}.${fileExtension}`;
 
-module.exports = uploadImage;
+  const blob = bucket.file(blobPath);
+
+  // Check if the file with the same name exists
+  const [exists] = await blob.exists();
+
+  if (exists) {
+    // If the file exists, delete it before uploading the new one
+    await blob.delete();
+  }
+
+  const blobStream = blob.createWriteStream({
+    resumable: false,
+  });
+
+  await blobStream.write(buffer);
+  await blobStream.end();
+
+  const publicUrl = util.format(
+    `https://storage.googleapis.com/${bucket.name}/${blob.name}`
+  );
+
+  return publicUrl;
+};
+
+module.exports = uploadImageProfile;
