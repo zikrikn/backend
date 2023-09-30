@@ -1,6 +1,7 @@
 const User = require("../model/user.model");
 const { createSecretToken } = require("../util/token.util");
 const bcrypt = require("bcryptjs");
+const uploadImage = require("../util/gcs.util.js");
 
 module.exports.Signup = async (req, res, next) => {
   try {
@@ -92,20 +93,26 @@ module.exports.Profile = async (req, res, next) => {
 };
 
 module.exports.UpdateProfile = async (req, res, next) => {
-    try {
-        const { fullName, phoneNumber, photoProfile } = req.body;
-        const user = await User.findByIdAndUpdate(
-        req.user._id,
-        {
-            fullName,
-            phoneNumber,
-            photoProfile,
-        },
-        { new: true }
-        );
-        res.status(200).json({ user });
-        next();
-    } catch (error) {
-        console.error(error);
+  try {
+    const { fullName, phoneNumber } = req.body;
+    const updateFields = {
+      fullName,
+      phoneNumber,
+    };
+
+    // Check if a file is uploaded for the photo profile
+    if (req.file) {
+      const imageUrl = await uploadImage(req.file);
+      updateFields.photoProfile = imageUrl;
     }
-}
+
+    const user = await User.findByIdAndUpdate(req.user._id, updateFields, {
+      new: true,
+    });
+    res.status(200).json({ user });
+    next();
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ status: false, message: "Internal server error." });
+  }
+};
