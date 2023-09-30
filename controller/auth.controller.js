@@ -102,9 +102,9 @@ module.exports.UpdateProfile = async (req, res, next) => {
 
     // Check if a file is uploaded for the photo profile
     if (req.file) {
-      const { fullName } = req.user; 
-      const sanitizedFullName = fullName.replace(/ /g, "_");
-      const imageUrl = await uploadImageProfile(req.file, sanitizedFullName);
+      const { email } = req.user; 
+      const sanitizedEmail = email.replace(/[@.]/g, "_");
+      const imageUrl = await uploadImageProfile(req.file, sanitizedEmail);
       updateFields.photoProfile = imageUrl;
     }
 
