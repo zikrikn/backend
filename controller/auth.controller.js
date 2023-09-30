@@ -4,8 +4,15 @@ const bcrypt = require("bcryptjs");
 
 module.exports.Signup = async (req, res, next) => {
   try {
-    const { email, password, fullName, role, phoneNumber, createdAt } =
-      req.body;
+    const {
+      email,
+      password,
+      fullName,
+      role,
+      phoneNumber,
+      photoProfile,
+      createdAt,
+    } = req.body;
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.json({ message: "User already exists" });
@@ -16,6 +23,7 @@ module.exports.Signup = async (req, res, next) => {
       fullName,
       role,
       phoneNumber,
+      photoProfile,
       createdAt,
     });
     const token = createSecretToken(user._id);
@@ -59,3 +67,45 @@ module.exports.Login = async (req, res, next) => {
     console.error(error);
   }
 };
+
+module.exports.Logout = async (req, res, next) => {
+  try {
+    res.cookie("token", "", {
+      withCredentials: true,
+      httpOnly: false,
+    });
+    res.status(201).json({ message: "User logged out successfully" });
+    next();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+module.exports.Profile = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user._id);
+    res.status(200).json({ user });
+    next();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+module.exports.UpdateProfile = async (req, res, next) => {
+    try {
+        const { fullName, phoneNumber, photoProfile } = req.body;
+        const user = await User.findByIdAndUpdate(
+        req.user._id,
+        {
+            fullName,
+            phoneNumber,
+            photoProfile,
+        },
+        { new: true }
+        );
+        res.status(200).json({ user });
+        next();
+    } catch (error) {
+        console.error(error);
+    }
+}

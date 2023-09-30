@@ -20,10 +20,15 @@ const userSchema = new mongoose.Schema({
     enum: ["user", "admin"],
     default: "user",
   },
-  // phone number is not required
   phoneNumber: {
     type: String,
     required: false,
+    default: "",
+  },
+  photoProfile: {
+    type: String,
+    required: false,
+    default: "",
   },
   createdAt: {
     type: Date,
