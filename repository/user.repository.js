@@ -6,7 +6,7 @@ async function createUser(user) {
   try {
     data = await User.create(user);
   } catch (error) {
-    logger.error("Error::", error);
+    logger.error(error.message);
   }
   return data;
 }
@@ -16,7 +16,7 @@ async function findUserByEmail(email) {
   try {
     data = await User.findOne({ email });
   } catch (error) {
-    logger.error("Error::", error);
+    logger.error(error.message);
   }
   return data;
 }
@@ -26,7 +26,7 @@ async function getUserProfile(userId) {
   try {
     data = await User.findById(userId).select("-password");
   } catch (error) {
-    logger.error("Error::", error);
+    logger.error(error.message);
   }
   return data;
 }
@@ -36,7 +36,7 @@ async function updateUser(userId, updateFields) {
   try {
     data = await User.findByIdAndUpdate(userId, updateFields, { new: true });
   } catch (error) {
-    logger.error("Error::", error);
+    logger.error(error.message);
   }
   return data;
 }
