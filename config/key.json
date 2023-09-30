@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "vibrant-catbird-385607",
+  "private_key_id": "84a0f392b9204974a597f0ea89bd7638a366af87",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCVmf3skKshegvq\nBAY6kzomy3koelOw9FA+WKk6dAcFsLxVl47ayGb2mZpG/JNKY0zXdxRX/WMZ4ekN\ndaeneP2VTJ6IOAaF8L0O/aJcgcwM9XRmHGhVRr/EQienHk+DY9nKE38rDt8Y/B8u\nFSrUOwJtecoJs0NwerKBuWjHB4R1dsspsXI8goj4ca7v6/Jr+62yzohwD0Mz3/KL\nTwnUuhnPP5j2yU5qb9wmZ/z01cw1P6LVcichPBHT3y1gG0yEU4pg0sWitQT1BRUo\n7e/cxQqiXyM4Za7ICAzArThHobDWFM3GhgKG6WLCcUosORqUwrD9HWq/Tcxelby2\nY0dqvZjZAgMBAAECggEAAYTTmYci+6cm75BspUPZJWtvrpfmWV+zoFxrVGz45MeF\nc/uCz2kVNYf782BNWQYe0bmzZszLaKf84x54jihZ7738Ro8GDu5RpxEvaK/HK/MC\nhGZhr0r1d7dBuo5B2ahF/emagwwGuxTVNrUvjwHN3aFsyhIsOzw9q3g/znR+tWgU\nP+GuZPdmmxo7VB88mkxLegdoIYcDFxO+7SG0/yCsNh445/aWBcz6jhG81cQicJC4\nDNDaKY7CgGg6WyKpWKp23Vv0Mx75S0GSNvWuk+e0j276qtsjoJDegDoevZXWt4mM\nMBcBif4v5Dmb/o0lcGg7Gau8VWabRsCpBenmCm8vsQKBgQDMxYkk+yf1uXgrTood\nMW43+ol3WI5KRh7CyWEbLayy0WMRTNGoeVxmjsTaVYPC0kd0lRVpOX9ROUlo8+3o\nYQFke5OfXCXuiHZnG60Lx5pLpqZQnoOaMMeg/Itsc0EHmyABB+VHeFLOpki/Mzpt\nF1bOn/pnITUjR2RhKJYvfMAkyQKBgQC7Bx+u4DAtYiUpRX/BsIQ3aSc8TgjWpu2r\n4pTcxwRsN9bYfDvZiopzBmEj3w4+BRQgYx+HEMpvpZsyXjk6puFn5i6hgnbhoB31\n8G/1swtOcJ8N0bKSIZ38Doihw+YyGmQ9wkGmIwl4M6CksFHuQDrHOp7y1CDEp3LZ\nxSNwMmMrkQKBgQCQTYRgMz3txE4S9r4N5I+vkzbci+N6I//5dMChzoYtXbFat6/n\n8d5Tx7ihxDGeUWFZntX/2S0HqD87XusBH5tDnHJjkySH/FK0RqSj8H2jYkVB+vLy\n7f1ATbhTLMVe/sqG73F79CcmybfqRceeqRvbcJGdq6Euw1jRvzBXNqqRQQKBgEqV\nWa4sWyoOBJHD1GHSWbebKHllCSNIqGkuT30HpJzfW78zM87Z78JVHfHnJs/WyKLt\nxInhSUliulRIvPvFxwffBGOGGpB5gNkuDAfoYa7jPJqPMG4UF+OHjDcuXyNF4Qm7\n6OAvAry7oelrIxEm7gm7N93QeEzUFfoAItTAU0nxAoGAUooxeg/D7VoQSlvHOCsx\n6N5H98BLbstqvuxOM4ss3tnynNF5zZnEm1riR0uzWWX7YVXWgssvv+L33vzGdWQq\nQIGhq5nTVJez04yQA23WtsHddcXLEfj2V6b9BXoh/ZlX+TdHFn7t5oeZF/braIKG\nhrcT3b6TpniA+DLyf/RWid4=\n-----END PRIVATE KEY-----\n",
+  "client_email": "infobencana@vibrant-catbird-385607.iam.gserviceaccount.com",
+  "client_id": "115008775537017906895",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/infobencana%40vibrant-catbird-385607.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
