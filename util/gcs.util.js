@@ -5,7 +5,7 @@ const short = require("short-uuid");
 
 const uploadImageProfile = async (file, sanitizedEmail) => {
   const { originalname, buffer } = file;
-  const fileExtension = originalname.split('.').pop();
+  const fileExtension = originalname.split(".").pop();
   const uuid = short().new();
   const blobPath = `profile/${sanitizedEmail}_${uuid}.${fileExtension}`;
 
@@ -18,7 +18,7 @@ const uploadImageProfile = async (file, sanitizedEmail) => {
   await blobStream.end();
 
   const publicUrl = util.format(
-    `https://storage.googleapis.com/${bucket.name}/${blob.name}`
+    `https://storage.googleapis.com/${bucket.name}/${blob.name}`,
   );
 
   return publicUrl;

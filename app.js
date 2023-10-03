@@ -8,7 +8,7 @@ const authRoute = require("./route/auth.route.js");
 const { MONGO_URL, PORT } = process.env;
 // x-www-form-urlencoded
 const bodyParser = require("body-parser");
-const { connect } = require("./config/db.config.js")
+const { connect } = require("./config/db.config.js");
 
 connect();
 
@@ -30,7 +30,7 @@ app.use(
     origin: ["http://localhost:4000"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
-  })
+  }),
 );
 app.use(cookieParser());
 
