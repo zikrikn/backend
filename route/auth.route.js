@@ -5,7 +5,7 @@ const { uploadPhotoProfile } = require("../middleware/upload.middleware");
 
 router.post("/signup", Signup);
 router.post("/login", Login);
-router.get("/logout", verifyToken, Logout);
+router.post("/logout", verifyToken, Logout);
 router.put("/profile", verifyToken, uploadPhotoProfile, UpdateProfile);
 router.get("/profile", verifyToken, Profile);
 
