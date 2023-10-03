@@ -9,11 +9,20 @@ module.exports.AddDisaster = async (req, res) => {
     res.status(200).json({
       message: "Disaster added",
       success: true,
-      disaster,
+      data: disaster,
     });
   } catch (error) {
     logger.error(error.message);
-    res.status(500).json({ status: false, message: "Internal server error." });
+    if (error.message === "Required fields are missing") {
+      res
+        .status(400)
+        .json({ status: false, message: "Required fields are missing." });
+    } else {
+      logger.error(error.message);
+      res
+        .status(500)
+        .json({ status: false, message: "Internal server error." });
+    }
   }
 };
 

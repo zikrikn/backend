@@ -98,12 +98,12 @@ const disasterSchema = new mongoose.Schema({
     required: true,
   },
   latitude: {
-    type: Number,
+    type: mongoose.Decimal128,
     required: false,
     default: 0.0,
   },
   longitude: {
-    type: Number,
+    type: mongoose.Decimal128,
     required: false,
     default: 0.0,
   },

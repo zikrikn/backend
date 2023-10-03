@@ -14,6 +14,10 @@ async function publishDisaster(disasterData) {
     timestamp,
   } = disasterData;
 
+  if (!name || !detail || !place || !picture) {
+    throw new Error("Required fields are missing");
+  }
+
   const disaster = await disasterRepository.addDisaster({
     name,
     detail,
