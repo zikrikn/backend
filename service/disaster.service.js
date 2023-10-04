@@ -34,8 +34,23 @@ async function publishDisaster(disasterData) {
   return disaster;
 }
 
-async function getListDisaster() {
-  return await disasterRepository.getListDisaster();
+async function getListDisaster(queryParams) {
+  let query = {};
+  
+  if (queryParams.name) {
+    query.name = { $regex: new RegExp(queryParams.name, "i") };
+  }
+  if (queryParams.place) {
+    query.place = { $regex: new RegExp(queryParams.place, "i") };
+  }
+  if (queryParams.type) {
+    query["detail.type"] = { $regex: new RegExp(queryParams.type, "i") };
+  }
+  if (queryParams.date) {
+    query["detail.date"] = queryParams.date;
+  }
+
+  return await disasterRepository.getListDisaster(query);
 }
 
 module.exports = {

@@ -11,10 +11,10 @@ async function addDisaster(disaster) {
   return data;
 }
 
-async function getListDisaster() {
+async function getListDisaster(query) {
   let data = {};
   try {
-    data = await Disaster.find();
+    data = await Disaster.find(query);
   } catch (error) {
     logger.error(error.message);
   }
