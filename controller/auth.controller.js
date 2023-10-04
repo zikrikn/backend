@@ -1,5 +1,5 @@
 const userService = require("../service/user.service");
-const logger = require('../logger/api.logger');
+const logger = require("../logger/api.logger");
 
 module.exports.Signup = async (req, res) => {
   try {
@@ -68,7 +68,7 @@ module.exports.UpdateProfile = async (req, res) => {
     const updatedUser = await userService.updateProfile(
       _id,
       updateFields,
-      req.file
+      req.file,
     );
     res.status(200).json({ user: updatedUser });
   } catch (error) {
