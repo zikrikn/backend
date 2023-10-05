@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema(
       required: [true, "Your email address is required"],
       unique: true,
     },
-    fullName: {
+    full_name: {
       type: String,
       required: [true, "Your name is required"],
     },
@@ -21,24 +21,24 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "admin"],
       default: "user",
     },
-    phoneNumber: {
+    phone_number: {
       type: String,
       required: false,
       default: "",
     },
-    photoProfile: {
+    photo_profile: {
       type: String,
       required: false,
       default: "",
     },
-    createdAt: {
+    created_at: {
       type: Date,
       default: new Date(),
     },
   },
   {
     versionKey: false, // Hide the __v field
-  },
+  }
 );
 
 userSchema.pre("save", async function () {

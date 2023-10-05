@@ -6,6 +6,7 @@ require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const authRoute = require("./route/auth.route.js");
 const disasterRoute = require("./route/disaster.route.js");
+const missingPeopleRoute = require("./route/reqmissingpeople.route.js");
 const { MONGO_URL, PORT } = process.env;
 // x-www-form-urlencoded
 const bodyParser = require("body-parser");
@@ -14,14 +15,6 @@ const { connect } = require("./config/db.config.js");
 connect();
 
 app.disable("x-powered-by");
-// mongoose
-//   .connect(MONGO_URL, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//   })
-//   .then(() => console.log("MongoDB is  connected successfully"))
-//   .catch((err) => console.error(err));
-
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
@@ -39,4 +32,5 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use("/", authRoute);
-app.use("/", disasterRoute);
+app.use("/disaster", disasterRoute);
+app.use("/missingpeople", missingPeopleRoute);

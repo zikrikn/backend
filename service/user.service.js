@@ -7,11 +7,11 @@ async function signupUser(userData) {
   const {
     email,
     password,
-    fullName,
+    full_name,
     role,
-    phoneNumber,
-    photoProfile,
-    createdAt,
+    phone_number,
+    photo_profile,
+    created_at,
   } = userData;
   const existingUser = await userRepository.findUserByEmail(email);
 
@@ -22,11 +22,11 @@ async function signupUser(userData) {
   const user = await userRepository.createUser({
     email,
     password,
-    fullName,
+    full_name,
     role,
-    phoneNumber,
-    photoProfile,
-    createdAt,
+    phone_number,
+    photo_profile,
+    created_at,
   });
 
   const token = createSecretToken(user._id);
@@ -53,7 +53,7 @@ async function updateProfile(userId, updateFields, file) {
     const { email } = updateFields;
     const sanitizedEmail = email.replace(/[@.]/g, "_");
     const imageUrl = await uploadImageProfile(file, sanitizedEmail);
-    updateFields.photoProfile = imageUrl;
+    updateFields.photo_profile = imageUrl;
   }
 
   return userRepository.updateUser(userId, updateFields);
