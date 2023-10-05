@@ -1,6 +1,8 @@
+const { isValid, parse } = require('date-fns');
+
 exports.validateInputDisaster = (req, res, next) => {
   const { name, place, detail} = req.body;
-  const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
+  const date = parse(detail.date, 'dd/MM/yyyy', new Date());
 
   if (!name) {
     return res
@@ -8,7 +10,7 @@ exports.validateInputDisaster = (req, res, next) => {
       .json({ status: false, message: "Name can't be empty" });
   }
 
-  if (!dateRegex.test(detail.date)) {
+  if (!isValid(date)) {
     return res
       .status(400)
       .json({ status: false, message: "Invalid date format (DD/MM/YYYY)" });

@@ -4,8 +4,6 @@ const logger = require("../logger/api.logger");
 
 module.exports.AddDisaster = async (req, res) => {
   try {
-    logger.info("Add disaster : ", req.body);
-
     const disasterData = req.body;
     const disaster = await disasterService.publishDisaster(
       disasterData,
