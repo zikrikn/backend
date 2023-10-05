@@ -1,6 +1,8 @@
 const disasterRepository = require("../repository/disaster.repository");
+const { uploadImageDisaster } = require("../util/gcs.util");
 
-async function publishDisaster(disasterData) {
+async function publishDisaster(disasterData, file) {
+  const pictureUrl = await uploadImageDisaster(file);
   const {
     name,
     detail,
@@ -8,15 +10,10 @@ async function publishDisaster(disasterData) {
     latitude,
     longitude,
     donations,
-    picture,
     people_gone,
     discuss,
     timestamp,
   } = disasterData;
-
-  if (!name || !detail || !place || !picture) {
-    throw new Error("Required fields are missing");
-  }
 
   const disaster = await disasterRepository.addDisaster({
     name,
@@ -25,7 +22,7 @@ async function publishDisaster(disasterData) {
     latitude,
     longitude,
     donations,
-    picture,
+    picture: pictureUrl,
     people_gone,
     discuss,
     timestamp,
@@ -36,7 +33,7 @@ async function publishDisaster(disasterData) {
 
 async function getListDisaster(queryParams) {
   let query = {};
-  
+
   if (queryParams.name) {
     query.name = { $regex: new RegExp(queryParams.name, "i") };
   }
