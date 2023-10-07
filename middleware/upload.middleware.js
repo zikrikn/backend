@@ -5,7 +5,7 @@ const uploadPhotoProfile = multer({
   limits: {
     fileSize: 1 * 1024 * 1024, // 5MB file size limit (adjust as needed)
   },
-}).single("photoProfile");
+}).single("photo_profile");
 
 const uploadPicture = multer({
   storage: multer.memoryStorage(),
