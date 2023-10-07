@@ -50,7 +50,22 @@ async function getListDisaster(queryParams) {
   return await disasterRepository.getListDisaster(query);
 }
 
+async function addPeopleGone(disasterId, peopleData) {
+  return await disasterRepository.addPeopleGone(disasterId, peopleData);
+}
+
+async function updatePeopleGone(disasterId, personId, updateFields) {
+  return await disasterRepository.updatePeopleGone(disasterId, personId, updateFields);
+} // Here
+
+async function getDisasterById(disasterId) { 
+  return await disasterRepository.getDisasterById(disasterId);
+}
+
 module.exports = {
   publishDisaster,
   getListDisaster,
+  addPeopleGone,
+  updatePeopleGone,
+  getDisasterById,
 };

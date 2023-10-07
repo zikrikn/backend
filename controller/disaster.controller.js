@@ -51,3 +51,43 @@ module.exports.GetListDisaster = async (req, res) => {
     res.status(500).json({ status: false, message: "Internal server error." });
   }
 };
+
+// Missing People = people_gone
+module.exports.UpdateMissingPeople = async (req, res) => {
+  try {
+    logger.info("Update missing people::", req.params);
+    const { id } = req.params;
+    const updateFields = req.body;
+    const missingPeople = await missingPeopleService.updateMissingPeople(
+      id,
+      updateFields
+    );
+    res.status(200).json(missingPeople);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+// Add a person to people_gone
+module.exports.AddPeopleGone = async (req, res) => {
+  try {
+    const { disasterId } = req.params;
+    const peopleData = req.body;
+    const disaster = await disasterService.addPeopleGone(disasterId, peopleData);
+    res.status(200).json(disaster);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+// // Update a person in people_gone
+// module.exports.UpdatePeopleGone = async (req, res) => {
+//   try {
+//     const { disasterId, personId } = req.params;
+//     const updateFields = req.body;
+//     const disaster = await disasterService.updatePeopleGone(disasterId, personId, updateFields);
+//     res.status(200).json(disaster);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// }
