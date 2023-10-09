@@ -5,11 +5,11 @@ module.exports.Signup = async (req, res) => {
   try {
     logger.info("Signup::", req.body);
     const userData = req.body;
-    const { token, user } = await userService.signupUser(userData);
+    const { token } = await userService.signupUser(userData);
     res.cookie("token", token, { withCredentials: true, httpOnly: false });
     res
       .status(201)
-      .json({ message: "User signed in successfully", success: true, user });
+      .json({ message: "User signed in successfully", success: true, data: { token: token }});
   } catch (error) {
     logger.error(error.message);
     res.status(500).json({ status: false, message: "Internal server error." });
@@ -24,7 +24,7 @@ module.exports.Login = async (req, res) => {
     res.cookie("token", token, { withCredentials: true, httpOnly: false });
     res
       .status(201)
-      .json({ message: "User logged in successfully", success: true, user: email });
+      .json({ message: "User logged in successfully", success: true, data: { token: token } });
   } catch (error) {
     logger.error(error.message);
     res.status(500).json({ status: false, message: "Internal server error." });
