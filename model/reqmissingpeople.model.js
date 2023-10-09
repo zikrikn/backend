@@ -3,9 +3,8 @@ const mongoose = require("mongoose");
 
 const reqMissingPeopleSchema = new mongoose.Schema(
   {
-    nama: {
+    name: {
       type: String,
-      required: true,
     },
     bencana_id: {
       type: mongoose.Schema.Types.ObjectId,
@@ -17,7 +16,6 @@ const reqMissingPeopleSchema = new mongoose.Schema(
     },
     status: {
       type: Boolean,
-      required: true,
     },
     weight: {
       type: String,

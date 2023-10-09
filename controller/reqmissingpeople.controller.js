@@ -13,7 +13,8 @@ async function createMissingPeople(req, res) {
       data: missingPeople,
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    logger.error(error.message);
+    return res.status(500).json({ error: error.message });
   }
 }
 
@@ -28,7 +29,8 @@ async function getMissingPeopleById(req, res) {
     }
     res.status(200).json({ message: "OK", status: true, data: missingPeople });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    logger.error(error.message);
+    return res.status(500).json({ error: error.message });
   }
 }
 
@@ -38,7 +40,8 @@ async function getMissingPeople(req, res) {
     const missingPeople = await missingPeopleService.getMissingPeople();
     res.status(200).json({ message: "OK", status: true, data: missingPeople });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    logger.error(error.message);
+    return res.status(500).json({ error: error.message });
   }
 }
 
@@ -57,7 +60,8 @@ async function deleteMissingPeople(req, res) {
     await missingPeopleService.deleteMissingPeopleById(id);
     res.status(200).json({ message: "Missing people deleted", status: true });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    logger.error(error.message);
+    return res.status(500).json({ error: error.message });
   }
 }
 
@@ -93,7 +97,7 @@ async function addMissingPeopleFromDisaster(req, res) {
 
     // Create an object to hold the missing people data
     const missingPeopleData = {
-      nama: missingPeople.name,
+      name: missingPeople.name,
       bencana_id: disaster._id,
       missing_people_id: missingPeople._id,
       status: status || missingPeople.status,
@@ -113,7 +117,8 @@ async function addMissingPeopleFromDisaster(req, res) {
       data: newMissingPeople,
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    logger.error(error.message);
+    return res.status(500).json({ error: error.message });
   }
 }
 
@@ -137,8 +142,8 @@ async function updatePeopleGoneInDisaster(req, res) {
       missingPeople.bencana_id,
       missingPeople.missing_people_id,
       {
-        status: true,
-        name: missingPeople.nama,
+        name: missingPeople.name,
+        status: missingPeople.status,
         weight: missingPeople.weight,
         height: missingPeople.height,
         age: missingPeople.age,
@@ -151,7 +156,8 @@ async function updatePeopleGoneInDisaster(req, res) {
       .status(200)
       .json({ message: "OK", status: true, data: updatedDisaster });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    logger.error(error.message);
+    return res.status(500).json({ error: error.message });
   }
 }
 

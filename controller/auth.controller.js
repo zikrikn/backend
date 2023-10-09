@@ -14,7 +14,14 @@ module.exports.Signup = async (req, res) => {
     });
   } catch (error) {
     logger.error(error.message);
-    res.status(500).json({ status: false, message: "Internal server error." });
+    if (error.message.includes("Email already registered")) {
+      return res
+        .status(400)
+        .json({ status: false, message: "Email already registered." });
+    }
+    return res
+      .status(500)
+      .json({ status: false, message: "Internal server error." });
   }
 };
 
@@ -31,7 +38,14 @@ module.exports.Login = async (req, res) => {
     });
   } catch (error) {
     logger.error(error.message);
-    res.status(500).json({ status: false, message: "Internal server error." });
+    if (error.message.includes("Incorrect password or email")) {
+      return res
+        .status(400)
+        .json({ status: false, message: "Incorrect password or email." });
+    }
+    return res
+      .status(500)
+      .json({ status: false, message: "Internal server error." });
   }
 };
 
@@ -39,12 +53,14 @@ module.exports.Logout = async (req, res) => {
   try {
     logger.info("Logout::", req.user.full_name);
     res.clearCookie("token", { withCredentials: true });
-    res
+    return res
       .status(200)
       .json({ status: true, message: "User logged out successfully" });
   } catch (error) {
     logger.error(error.message);
-    res.status(500).json({ status: false, message: "Internal server error." });
+    return res
+      .status(500)
+      .json({ status: false, message: "Internal server error." });
   }
 };
 
@@ -57,10 +73,12 @@ module.exports.Profile = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    res.status(200).json({ message: "OK", status: true, data: user });
+    return res.status(200).json({ message: "OK", status: true, data: user });
   } catch (error) {
     logger.error(error.message);
-    res.status(500).json({ status: false, message: "Internal server error." });
+    return res
+      .status(500)
+      .json({ status: false, message: "Internal server error." });
   }
 };
 
@@ -75,9 +93,20 @@ module.exports.UpdateProfile = async (req, res) => {
       updateFields,
       req.file
     );
-    res.status(200).json({ message: "OK", status: true, data: updatedUser });
+    return res
+      .status(200)
+      .json({ message: "OK", status: true, data: updatedUser });
   } catch (error) {
     logger.error(error.message);
-    res.status(500).json({ status: false, message: "Internal server error." });
+    if (error.message.includes("it is undefined")) {
+      res.status(400).json({
+        status: false,
+        message: "There's something wrong with the picture",
+      });
+    } else {
+      return res
+        .status(500)
+        .json({ status: false, message: "Internal server error." });
+    }
   }
 };
