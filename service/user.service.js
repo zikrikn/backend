@@ -29,7 +29,7 @@ async function signupUser(userData) {
     created_at,
   });
 
-  const token = createSecretToken(user._id, user.full_name, user.email);
+  const token = createSecretToken(user._id);
   return { token, user };
 }
 
@@ -40,7 +40,7 @@ async function loginUser(email, password) {
     throw new Error("Incorrect password or email");
   }
 
-  const token = createSecretToken(user._id, user.full_name, user.email);
+  const token = createSecretToken(user._id);
   return token;
 }
 
