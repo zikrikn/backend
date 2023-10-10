@@ -1,8 +1,7 @@
-const { isValid, parse } = require('date-fns');
+const { isValid } = require('date-fns');
 
 exports.validateInputDisaster = (req, res, next) => {
   const { name, place, detail} = req.body;
-  const date = parse(detail.date, 'dd/MM/yyyy', new Date());
 
   if (!name) {
     return res
@@ -10,10 +9,10 @@ exports.validateInputDisaster = (req, res, next) => {
       .json({ status: false, message: "Name can't be empty" });
   }
 
-  if (!isValid(date)) {
+  if (!isValid(new Date(detail.date))) {
     return res
       .status(400)
-      .json({ status: false, message: "Invalid date format (DD/MM/YYYY)" });
+      .json({ status: false, message: "Invalid date format, please use ISO 8601" });
   }
 
   if (!detail.type) {
