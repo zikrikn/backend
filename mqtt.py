@@ -2,9 +2,11 @@ import paho.mqtt.client as mqtt
 import time
 
 # MQTT broker settings
-broker_address = "172.21.160.1"  # Replace with your RabbitMQ broker address
+broker_address = "172.21.160.1"  # Replace with your MQTT broker address
 port = 1883  # Default MQTT port
 topic = "test"  # Replace with the MQTT topic you want to publish/subscribe to
+username = "guest"  # Replace with your MQTT username
+password = "guest"  # Replace with your MQTT password
 
 # Callbacks
 def on_connect(client, userdata, flags, rc):
@@ -19,6 +21,9 @@ def on_message(client, userdata, message):
 
 # Create an MQTT client
 client = mqtt.Client()
+
+# Set username and password
+client.username_pw_set(username, password)
 
 # Set callback functions
 client.on_connect = on_connect
