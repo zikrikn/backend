@@ -26,6 +26,12 @@ module.exports.verifyToken = async (req, res, next) => {
 
     next(); // Continue to the next middleware or route handler
   } catch (err) {
-    return res.status(401).json({ status: false, message: "Invalid token." });
+    if (err.name === "TokenExpiredError") {
+      return res
+        .status(401)
+        .json({ status: false, message: "Token has expired." });
+    } else {
+      return res.status(401).json({ status: false, message: "Invalid token." });
+    }
   }
 };
