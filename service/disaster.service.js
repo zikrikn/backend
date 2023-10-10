@@ -62,10 +62,15 @@ async function getDisasterById(disasterId) {
   return await disasterRepository.getDisasterById(disasterId);
 }
 
+async function deletePeopleGone(disasterId, personId) {
+  return await disasterRepository.deletePeopleGone(disasterId, personId);
+}
+
 module.exports = {
   publishDisaster,
   getListDisaster,
   addPeopleGone,
   updatePeopleGone,
   getDisasterById,
+  deletePeopleGone,
 };

@@ -19,12 +19,14 @@ app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
 
+const allowedOrigins = ["*"];
+
 app.use(
   cors({
-    origin: ["http://localhost:4000"],
+    origin: allowedOrigins,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
-  }),
+  })
 );
 app.use(cookieParser());
 
