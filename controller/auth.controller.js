@@ -9,7 +9,7 @@ module.exports.Signup = async (req, res) => {
     res.cookie("token", token, { withCredentials: true, httpOnly: false });
     res.status(201).json({
       message: "User signed in successfully",
-      success: true,
+      status: true,
       data: { token: token },
     });
   } catch (error) {
@@ -33,7 +33,7 @@ module.exports.Login = async (req, res) => {
     res.cookie("token", token, { withCredentials: true, httpOnly: false });
     res.status(201).json({
       message: "User logged in successfully",
-      success: true,
+      status: true,
       data: { token: token },
     });
   } catch (error) {
