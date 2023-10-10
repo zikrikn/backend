@@ -7,6 +7,7 @@ async function publishDisaster(disasterData, file) {
     name,
     detail,
     place,
+    victim,
     latitude,
     longitude,
     donations,
@@ -19,6 +20,7 @@ async function publishDisaster(disasterData, file) {
     name,
     detail,
     place,
+    victim,
     latitude,
     longitude,
     donations,
@@ -62,10 +64,15 @@ async function getDisasterById(disasterId) {
   return await disasterRepository.getDisasterById(disasterId);
 }
 
+async function deleteDisasterById(disasterId) {
+  return await disasterRepository.deleteDisasterById(disasterId);
+}
+
 module.exports = {
   publishDisaster,
   getListDisaster,
   addPeopleGone,
   updatePeopleGone,
   getDisasterById,
+  deleteDisasterById,
 };

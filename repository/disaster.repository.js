@@ -65,10 +65,19 @@ async function getDisasterById(disasterId) {
   }
 }
 
+async function deleteDisasterById(id){
+  try {
+    return await Disaster.findByIdAndDelete(id);
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   addDisaster,
   getListDisaster,
   addPeopleGone,
   updatePeopleGone,
   getDisasterById,
+  deleteDisasterById,
 };

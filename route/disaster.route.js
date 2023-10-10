@@ -2,6 +2,7 @@ const {
   AddDisaster,
   GetListDisaster,
   AddPeopleGone,
+  DeleteDisaster,
   // UpdatePeopleGone,
 } = require("../controller/disaster.controller");
 
@@ -13,6 +14,7 @@ const {
 
 router.post("", uploadPicture, validateInputDisaster, AddDisaster);
 router.get("", GetListDisaster);
+router.delete("/:disasterId", DeleteDisaster);
 router.post("/:disasterId/people_gone", AddPeopleGone);
 // router.put("/:disasterId/people_gone/:personId", UpdatePeopleGone);
 module.exports = router;

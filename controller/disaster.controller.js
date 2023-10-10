@@ -91,3 +91,30 @@ module.exports.AddPeopleGone = async (req, res) => {
 //     res.status(500).json({ error: error.message });
 //   }
 // }
+
+module.exports.DeleteDisaster = async (req, res) => {
+  try {
+    const { disasterId } = req.params;
+    const existingDisaster = await disasterService.getDisasterById(disasterId);
+
+    if (!existingDisaster) {
+      return res
+        .status(400)
+        .json({
+          status: false,
+          message: "Disaster not found",
+        });
+    }
+
+    await disasterService.deleteDisasterById(disasterId);
+    return res
+        .status(200)
+        .json({
+          status: true,
+          message: "Disaster deleted",
+        });
+  } catch (error) {
+    logger.error(error.message);
+    res.status(500).json({ status: false, message: "Internal server error." });
+  }
+}

@@ -97,6 +97,11 @@ const disasterSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  victim : {
+    type: Number,
+    required: false,
+    default: 0,
+  },
   latitude: {
     type: Number,
     required: false,
