@@ -65,12 +65,22 @@ async function getDisasterById(disasterId) {
   }
 }
 
-async function deleteDisasterById(id){
+async function deleteDisasterById(disasterId){
   try {
-    return await Disaster.findByIdAndDelete(id);
+    return await Disaster.findByIdAndDelete(disasterId);
   } catch (error) {
     throw error;
   }
+}
+
+async function updateDisasterById(disasterId, updateFields) {
+  let data = {};
+  try {
+    data = await Disaster.findByIdAndUpdate(disasterId, updateFields, { new: true });
+  } catch (error) {
+    logger.error(error.message);
+  }
+  return data;
 }
 
 module.exports = {
@@ -80,4 +90,5 @@ module.exports = {
   updatePeopleGone,
   getDisasterById,
   deleteDisasterById,
+  updateDisasterById,
 };

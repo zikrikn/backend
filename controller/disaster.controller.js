@@ -118,3 +118,27 @@ module.exports.DeleteDisaster = async (req, res) => {
     res.status(500).json({ status: false, message: "Internal server error." });
   }
 }
+
+module.exports.UpdateDisaster = async (req, res) => {
+  try {
+    const { disasterId } = req.params;
+    const updateFields = req.body;
+
+    const updatedDisaster = await disasterService.updateDisasterById(
+      disasterId,
+      updateFields,
+      req.file
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Disaster updated",
+      data: updatedDisaster,
+    });
+  } catch (error) {
+    logger.error(error.message);
+    res
+      .status(500)
+      .json({ status: false, message: "Internal server error." });
+  }
+}

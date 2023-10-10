@@ -68,6 +68,15 @@ async function deleteDisasterById(disasterId) {
   return await disasterRepository.deleteDisasterById(disasterId);
 }
 
+async function updateDisasterById(disasterId, updateFields, file) {
+  const { people_gone, discuss, ...validUpdateFields } = updateFields;
+  if (file) {
+    const pictureUrl = await uploadImageDisaster(file);
+    validUpdateFields.picture = pictureUrl
+  }
+  return await disasterRepository.updateDisasterById(disasterId, validUpdateFields);
+}
+
 module.exports = {
   publishDisaster,
   getListDisaster,
@@ -75,4 +84,5 @@ module.exports = {
   updatePeopleGone,
   getDisasterById,
   deleteDisasterById,
+  updateDisasterById,
 };
