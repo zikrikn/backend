@@ -21,7 +21,7 @@ app.listen(PORT, () => {
 
 app.use(
   cors({
-    origin: "*",
+    origin: ["http://localhost:4000", "http://localhost:5173", "https://gigih-backend-hhoivlttoa-et.a.run.app"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
