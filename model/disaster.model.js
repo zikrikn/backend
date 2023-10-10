@@ -85,7 +85,7 @@ const disasterSchema = new mongoose.Schema({
       required: true,
     },
     date: {
-      type: String,
+      type: Date,
       required: true,
     },
     description: {
@@ -96,6 +96,11 @@ const disasterSchema = new mongoose.Schema({
   place: {
     type: String,
     required: true,
+  },
+  victim : {
+    type: Number,
+    required: false,
+    default: 0,
   },
   latitude: {
     type: Number,

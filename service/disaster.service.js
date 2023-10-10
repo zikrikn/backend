@@ -7,6 +7,7 @@ async function publishDisaster(disasterData, file) {
     name,
     detail,
     place,
+    victim,
     latitude,
     longitude,
     donations,
@@ -19,6 +20,7 @@ async function publishDisaster(disasterData, file) {
     name,
     detail,
     place,
+    victim,
     latitude,
     longitude,
     donations,
@@ -62,6 +64,19 @@ async function getDisasterById(disasterId) {
   return await disasterRepository.getDisasterById(disasterId);
 }
 
+async function deleteDisasterById(disasterId) {
+  return await disasterRepository.deleteDisasterById(disasterId);
+}
+
+async function updateDisasterById(disasterId, updateFields, file) {
+  const { people_gone, discuss, ...validUpdateFields } = updateFields;
+  if (file) {
+    const pictureUrl = await uploadImageDisaster(file);
+    validUpdateFields.picture = pictureUrl
+  }
+  return await disasterRepository.updateDisasterById(disasterId, validUpdateFields);
+}
+
 async function deletePeopleGone(disasterId, personId) {
   return await disasterRepository.deletePeopleGone(disasterId, personId);
 }
@@ -72,5 +87,7 @@ module.exports = {
   addPeopleGone,
   updatePeopleGone,
   getDisasterById,
+  deleteDisasterById,
+  updateDisasterById,
   deletePeopleGone,
 };

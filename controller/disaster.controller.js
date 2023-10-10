@@ -92,6 +92,56 @@ module.exports.AddPeopleGone = async (req, res) => {
 //   }
 // }
 
+module.exports.DeleteDisaster = async (req, res) => {
+  try {
+    const { disasterId } = req.params;
+    const existingDisaster = await disasterService.getDisasterById(disasterId);
+
+    if (!existingDisaster) {
+      return res
+        .status(400)
+        .json({
+          status: false,
+          message: "Disaster not found",
+        });
+    }
+
+    await disasterService.deleteDisasterById(disasterId);
+    return res
+        .status(200)
+        .json({
+          status: true,
+          message: "Disaster deleted",
+        });
+  } catch (error) {
+    logger.error(error.message);
+    res.status(500).json({ status: false, message: "Internal server error." });
+  }
+}
+
+module.exports.UpdateDisaster = async (req, res) => {
+  try {
+    const { disasterId } = req.params;
+    const updateFields = req.body;
+
+    const updatedDisaster = await disasterService.updateDisasterById(
+      disasterId,
+      updateFields,
+      req.file
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Disaster updated",
+      data: updatedDisaster,
+    });
+  } catch (error) {
+    logger.error(error.message);
+    res
+      .status(500)
+      .json({ status: false, message: "Internal server error." });
+  }
+}
 
 // Please make delete missing people or people gone in disaster.controller.js
 module.exports.DeletePeopleGone = async (req, res) => {
@@ -104,4 +154,3 @@ module.exports.DeletePeopleGone = async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 }
-  
