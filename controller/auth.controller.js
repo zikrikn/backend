@@ -6,7 +6,12 @@ module.exports.Signup = async (req, res) => {
     logger.info("Signup::", req.body);
     const userData = req.body;
     const { token } = await userService.signupUser(userData);
-    res.cookie("token", token, { withCredentials: true, httpOnly: false, sameSite: "none" });
+    res.cookie("token", token, {
+      withCredentials: true,
+      httpOnly: false,
+      sameSite: "none",
+      secure: true,
+    });
     res.status(201).json({
       message: "User signed in successfully",
       status: true,
@@ -30,7 +35,12 @@ module.exports.Login = async (req, res) => {
     const { email, password } = req.body;
     logger.info("Login as ::", email);
     const token = await userService.loginUser(email, password);
-    res.cookie("token", token, { withCredentials: true, httpOnly: false, sameSite: "none" });
+    res.cookie("token", token, {
+      withCredentials: true,
+      httpOnly: false,
+      sameSite: "none",
+      secure: true,
+    });
     res.status(201).json({
       message: "User logged in successfully",
       status: true,
