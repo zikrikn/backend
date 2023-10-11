@@ -11,6 +11,7 @@ module.exports.Signup = async (req, res) => {
       httpOnly: false,
       sameSite: "none",
       secure: true,
+      expires: new Date(Date.now() + (3 * 24 * 60 * 60 * 1000)),
     });
     res.status(201).json({
       message: "User signed in successfully",
@@ -40,6 +41,7 @@ module.exports.Login = async (req, res) => {
       httpOnly: false,
       sameSite: "none",
       secure: true,
+      expires: new Date(Date.now() + (3 * 24 * 60 * 60 * 1000)),
     });
     res.status(201).json({
       message: "User logged in successfully",
